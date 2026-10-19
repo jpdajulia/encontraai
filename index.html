@@ -1,0 +1,197 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Encontre objetos perdidos e cadastre itens encontrados.">
+  <title>EncontraAí | Achados e Perdidos</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/app.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a href="#" class="brand" aria-label="EncontraAí, página inicial">
+      <span class="brand-icon">🔎</span>
+      <span>Encontra<span class="brand-highlight">Aí</span></span>
+    </a>
+    <span class="topbar-label">Sistema de achados e perdidos</span>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <span class="eyebrow">ACHOU OU PERDEU ALGO?</span>
+      <h1>Vamos encontrar<br>o que está <span>faltando.</span></h1>
+      <p>Cadastre objetos perdidos ou encontrados e ajude a devolvê-los aos seus donos.</p>
+      <a href="#cadastro" class="primary-button hero-button">
+        + Cadastrar objeto
+      </a>
+    </section>
+
+    <section class="stats" aria-label="Resumo dos objetos">
+      <article class="stat-card">
+        <span class="stat-icon">📦</span>
+        <div>
+          <span class="stat-label">Total de registros</span>
+          <strong id="total-registros">0</strong>
+        </div>
+      </article>
+      <article class="stat-card">
+        <span class="stat-icon">🔍</span>
+        <div>
+          <span class="stat-label">Objetos perdidos</span>
+          <strong id="total-perdidos">0</strong>
+        </div>
+      </article>
+      <article class="stat-card">
+        <span class="stat-icon">🤝</span>
+        <div>
+          <span class="stat-label">Encontrados</span>
+          <strong id="total-encontrados">0</strong>
+        </div>
+      </article>
+    </section>
+
+    <section class="section" id="cadastro">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">NOVO REGISTRO</span>
+          <h2>Cadastrar objeto</h2>
+        </div>
+        <span class="section-icon">✏️</span>
+      </div>
+
+      <form id="form-objeto">
+        <div class="form-grid">
+          <div class="field">
+            <label for="tipo">Tipo de registro *</label>
+            <select id="tipo" required>
+              <option value="perdido">Perdi um objeto</option>
+              <option value="encontrado">Encontrei um objeto</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="nome">Nome do objeto *</label>
+            <input id="nome" type="text" maxlength="70"
+              placeholder="Ex.: Garrafa azul" required>
+          </div>
+
+          <div class="field">
+            <label for="categoria">Categoria *</label>
+            <select id="categoria" required>
+              <option value="">Selecione uma categoria</option>
+              <option value="Acessórios">Acessórios</option>
+              <option value="Material escolar">Material escolar</option>
+              <option value="Eletrônicos">Eletrônicos</option>
+              <option value="Documentos">Documentos</option>
+              <option value="Roupas">Roupas</option>
+              <option value="Chaves">Chaves</option>
+              <option value="Outros">Outros</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="data">Data em que perdeu/encontrou *</label>
+            <input id="data" type="date" required>
+          </div>
+
+          <div class="field full-width">
+            <label for="local">Local onde perdeu/encontrou *</label>
+            <input id="local" type="text" maxlength="100"
+              placeholder="Ex.: Biblioteca da escola" required>
+          </div>
+
+          <div class="field full-width">
+            <label for="descricao">Descrição do objeto *</label>
+            <textarea id="descricao" rows="3" maxlength="500"
+              placeholder="Descreva a cor, a marca e outras características..."
+              required></textarea>
+          </div>
+
+          <div class="field full-width">
+            <label for="imagem">Link de uma foto (opcional)</label>
+            <input id="imagem" type="url" maxlength="500"
+              placeholder="https://exemplo.com/foto.jpg">
+            <small>Informe um link público de imagem, se houver.</small>
+          </div>
+        </div>
+
+        <p id="mensagem-formulario" class="form-message" role="status"
+          aria-live="polite"></p>
+
+        <button class="primary-button" type="submit">
+          Cadastrar objeto
+        </button>
+      </form>
+    </section>
+
+    <section class="section" id="objetos">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">CONSULTE OS REGISTROS</span>
+          <h2>Objetos cadastrados</h2>
+        </div>
+        <span class="section-icon">📋</span>
+      </div>
+
+      <div class="search-box">
+        <label for="pesquisa">Pesquisar objeto</label>
+        <input id="pesquisa" type="search"
+          placeholder="Digite o nome, a descrição ou o local...">
+      </div>
+
+      <div class="filters">
+        <div class="field">
+          <label for="filtro-tipo">Tipo</label>
+          <select id="filtro-tipo">
+            <option value="todos">Todos os tipos</option>
+            <option value="perdido">Perdidos</option>
+            <option value="encontrado">Encontrados</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="filtro-categoria">Categoria</label>
+          <select id="filtro-categoria">
+            <option value="todas">Todas as categorias</option>
+            <option value="Acessórios">Acessórios</option>
+            <option value="Material escolar">Material escolar</option>
+            <option value="Eletrônicos">Eletrônicos</option>
+            <option value="Documentos">Documentos</option>
+            <option value="Roupas">Roupas</option>
+            <option value="Chaves">Chaves</option>
+            <option value="Outros">Outros</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="filtro-status">Status</label>
+          <select id="filtro-status">
+            <option value="todos">Todos os status</option>
+            <option value="ativo">Ainda não devolvido</option>
+            <option value="devolvido">Devolvido</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="results-heading">
+        <span id="quantidade-resultados">0 objetos</span>
+        <button type="button" id="limpar-filtros" class="text-button">
+          Limpar filtros
+        </button>
+      </div>
+
+      <div id="lista-objetos" class="object-grid"></div>
+    </section>
+
+    <footer class="footer">
+      <a href="#" class="brand footer-brand">
+        🔎 Encontra<span class="brand-highlight">Aí</span>
+      </a>
+      <p>Conectando objetos perdidos aos seus donos.</p>
+      <small>Projeto acadêmico de programação.</small>
+    </footer>
+  </main>
+</body>
+</html>
